@@ -1,0 +1,466 @@
+{
+    "R&B": [
+        [
+            "The Weeknd - Earned It",
+            "silky, urban R&B ballad"
+        ],
+        [
+            "FKJ - Tadow",
+            "neo-soul, Rhodes & smooth bass"
+        ],
+        [
+            "Daniel Caesar - Best Part",
+            "intimate R&B duet"
+        ],
+        [
+            "D'Angelo - Brown Sugar",
+            "classic neo-soul"
+        ],
+        [
+            "Giveon - Heartbreak Anniversary",
+            "contemporary R&B"
+        ]
+    ],
+    "Reggae": [
+        [
+            "Bob Marley - No Woman, No Cry",
+            "classic roots reggae"
+        ],
+        [
+            "Toots & The Maytals - 54-46",
+            "ska/rocksteady edge"
+        ],
+        [
+            "Rhye - Taste (reggae remix vibe)",
+            "modern mellow twist"
+        ],
+        [
+            "Chronixx - Skankin Sweet",
+            "modern roots reggae"
+        ],
+        [
+            "Stick Figure - World on Fire",
+            "reggae rock"
+        ]
+    ],
+    "Dream pop": [
+        [
+            "Beach House - Space Song",
+            "iconic hazy dream pop"
+        ],
+        [
+            "Alvvays - Dreams Tonite",
+            "bright, nostalgic tint"
+        ],
+        [
+            "M83 - Midnight City",
+            "synth-lush dreaminess"
+        ],
+        [
+            "Slowdive - Sugar for the Pill",
+            "shoegaze dream pop"
+        ],
+        [
+            "Cocteau Twins - Heaven or Las Vegas",
+            "ethereal dream pop"
+        ]
+    ],
+    "City pop": [
+        [
+            "Tatsuro Yamashita - Sparkle",
+            "city pop gold"
+        ],
+        [
+            "Miki Matsubara - Stay With Me",
+            "classic vibe"
+        ],
+        [
+            "落日飞车 Sunset Rollercoaster - My Jinji",
+            "modern city-pop adjacent"
+        ],
+        [
+            "Anri - Cat's Eye",
+            "iconic city pop"
+        ],
+        [
+            "Yuming - Carnation",
+            "beloved classic"
+        ]
+    ],
+    "Trip-hop": [
+        [
+            "Massive Attack - Teardrop",
+            "moody, iconic trip-hop"
+        ],
+        [
+            "Portishead - Roads",
+            "noir, cinematic"
+        ],
+        [
+            "Tricky - Hell Is Round The Corner",
+            "dark texture"
+        ],
+        [
+            "DJ Shadow - Midnight in a Perfect World",
+            "instrumental trip-hop"
+        ],
+        [
+            "Morcheeba - The Sea",
+            "atmospheric trip-hop"
+        ]
+    ],
+    "Lo-fi hiphop": [
+        [
+            "J Dilla - Donuts (various)",
+            "lo-fi crate-digging vibe"
+        ],
+        [
+            "Nujabes - Feather",
+            "jazzy chill"
+        ],
+        [
+            "Jinsang - affection",
+            "classic lofi study"
+        ],
+        [
+            "Tomppabeats - Come In",
+            "lo-fi chill"
+        ],
+        [
+            "Idealism - Distant",
+            "dreamy lo-fi"
+        ]
+    ],
+    "Synthwave": [
+        [
+            "Kavinsky - Nightcall",
+            "retro analog mood"
+        ],
+        [
+            "Timecop1983 - On the Run",
+            "romantic synthwave"
+        ],
+        [
+            "The Midnight - Sunset",
+            "modern synthwave"
+        ],
+        [
+            "Gunship - Dark All Day",
+            "cinematic synthwave"
+        ],
+        [
+            "Perturbator - Complete Domination",
+            "darker synthwave"
+        ]
+    ],
+    "Post-rock": [
+        [
+            "Explosions in the Sky - Your Hand in Mine",
+            "build & catharsis"
+        ],
+        [
+            "Mono - Ashes in the Snow",
+            "cinematic swell"
+        ],
+        [
+            "Wang Wen 惘闻 - Red Wall and Black Wall",
+            "Chinese post-rock"
+        ],
+        [
+            "This Will Destroy You - The Mighty Rio Grande",
+            "epic soundscapes"
+        ],
+        [
+            "Godspeed You! Black Emperor - Dead Flag Blues",
+            "orchestral post-rock"
+        ]
+    ],
+    "Ambient": [
+        [
+            "Brian Eno - An Ending (Ascent)",
+            "pioneering ambient"
+        ],
+        [
+            "Stars of the Lid - Requiem for Dying Mothers",
+            "drone beauty"
+        ],
+        [
+            "Hammock - Turn Away and Return",
+            "lush ambient"
+        ],
+        [
+            "Tim Hecker - Virgins",
+            "dark ambient textures"
+        ],
+        [
+            "Aphex Twin - Rhubarb",
+            "minimalist ambient"
+        ]
+    ],
+    "Indie refs": [
+        [
+            "黑裙子 - lingling",
+            "Chinese indie electronic/alt reference"
+        ],
+        [
+            "Phoenix - Lisztomania",
+            "indie pop"
+        ],
+        [
+            "Arcade Fire - Wake Up",
+            "indie rock epic"
+        ],
+        [
+            "Tame Impala - The Less I Know The Better",
+            "indie psychedelic"
+        ]
+    ],
+    "Jazz": [
+        [
+            "Miles Davis - So What",
+            "modal jazz classic"
+        ],
+        [
+            "John Coltrane - Blue Train",
+            "hard bop"
+        ],
+        [
+            "Bill Evans - Waltz for Debby",
+            "jazz piano trio"
+        ],
+        [
+            "Kamasi Washington - The Truth",
+            "modern jazz"
+        ],
+        [
+            "Robert Glasper - Black Radio",
+            "jazz fusion"
+        ]
+    ],
+    "Folk": [
+        [
+            "Simon & Garfunkel - The Sound of Silence",
+            "classic folk harmony"
+        ],
+        [
+            "Bon Iver - For Emma",
+            "indie folk with falsetto"
+        ],
+        [
+            "Iron & Wine - Naked as We Came",
+            "intimate folk"
+        ],
+        [
+            "Nick Drake - River Man",
+            "melancholic folk"
+        ],
+        [
+            "Fleet Foxes - Mykonos",
+            "harmony-rich folk"
+        ]
+    ],
+    "Metal": [
+        [
+            "Black Sabbath - Paranoid",
+            "classic metal"
+        ],
+        [
+            "Metallica - Enter Sandman",
+            "thrash metal anthem"
+        ],
+        [
+            "Dream Theater - Pull Me Under",
+            "progressive metal"
+        ],
+        [
+            "Opeth - Ghost of Perdition",
+            "progressive death metal"
+        ],
+        [
+            "Mastodon - Blood and Thunder",
+            "sludge metal"
+        ]
+    ],
+    "House": [
+        [
+            "Frankie Knuckles - The Whistle Song",
+            "classic house anthem"
+        ],
+        [
+            "Daft Punk - One More Time",
+            "filter house"
+        ],
+        [
+            "Armand Van Helden - You Don't Know Me",
+            "vocal house"
+        ]
+    ],
+    "EDM": [
+        [
+            "Avicii - Wake Me Up",
+            "folktronica EDM"
+        ],
+        [
+            "Swedish House Mafia - Don't You Worry Child",
+            "progressive house"
+        ],
+        [
+            "Marshmello - Alone",
+            "future bass"
+        ]
+    ],
+    "Indie Pop": [
+        [
+            "Phoenix - Lisztomania",
+            "indie pop banger"
+        ],
+        [
+            "MGMT - Electric Feel",
+            "indie electro pop"
+        ],
+        [
+            "Tame Impala - The Less I Know The Better",
+            "indie psych pop"
+        ]
+    ],
+    "Ska": [
+        [
+            "The Specials - A Message to You, Rudy",
+            "2-tone ska"
+        ],
+        [
+            "Reel Big Fish - Sell Out",
+            "third wave ska"
+        ],
+        [
+            "No Doubt - Spiderwebs",
+            "pop ska"
+        ]
+    ],
+    "Punk Rock": [
+        [
+            "The Ramones - Blitzkrieg Bop",
+            "classic punk"
+        ],
+        [
+            "Green Day - Basket Case",
+            "pop punk"
+        ],
+        [
+            "The Clash - London Calling",
+            "punk rock epic"
+        ]
+    ],
+    "Country": [
+        [
+            "Johnny Cash - Ring of Fire",
+            "classic country anthem"
+        ],
+        [
+            "Dolly Parton - Jolene",
+            "country ballad"
+        ],
+        [
+            "Willie Nelson - On the Road Again",
+            "country road song"
+        ]
+    ],
+    "Funk": [
+        [
+            "James Brown - Sex Machine",
+            "classic funk"
+        ],
+        [
+            "Parliament - Give Up the Funk",
+            "P-funk classic"
+        ],
+        [
+            "Stevie Wonder - Superstition",
+            "funky fusion"
+        ]
+    ],
+    "Blues": [
+        [
+            "B.B. King - The Thrill Is Gone",
+            "classic blues ballad"
+        ],
+        [
+            "Stevie Ray Vaughan - Pride and Joy",
+            "electric blues"
+        ],
+        [
+            "Muddy Waters - Mannish Boy",
+            "blues standard"
+        ]
+    ],
+    "Classical": [
+        [
+            "Beethoven - Moonlight Sonata",
+            "romantic piano"
+        ],
+        [
+            "Vivaldi - Four Seasons",
+            "baroque classic"
+        ],
+        [
+            "Mozart - Eine kleine Nachtmusik",
+            "classical symphony"
+        ]
+    ],
+    "Hip-Hop": [
+        [
+            "Dr. Dre - Nuthin' but a 'G' Thang",
+            "west coast hip-hop"
+        ],
+        [
+            "Nas - NY State of Mind",
+            "east coast hip-hop"
+        ],
+        [
+            "Tupac - Changes",
+            "conscious hip-hop"
+        ]
+    ],
+    "Techno": [
+        [
+            "Jeff Mills - The Bells",
+            "classic techno anthem"
+        ],
+        [
+            "Underworld - Born Slippy",
+            "big beat techno"
+        ],
+        [
+            "Charlotte de Witte - Selected",
+            "hard techno"
+        ]
+    ],
+    "Gospel": [
+        [
+            "Mahalia Jackson - Amazing Grace",
+            "classic gospel"
+        ],
+        [
+            "Kirk Franklin - Hosanna",
+            "contemporary gospel"
+        ],
+        [
+            "Aretha Franklin - Amazing Grace",
+            "soulful gospel"
+        ]
+    ],
+    "Soul": [
+        [
+            "Marvin Gaye - What's Going On",
+            "motown soul"
+        ],
+        [
+            "Aretha Franklin - Respect",
+            "soul anthem"
+        ],
+        [
+            "Al Green - Let's Stay Together",
+            "smooth soul"
+        ]
+    ]
+}

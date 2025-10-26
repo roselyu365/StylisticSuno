@@ -2,185 +2,280 @@
 
 
 # app.py
-# Project: SonicPalette - terminal MVP (no AI)
+# Project: SonicPalette - ML-enhanced prompt builder
 # Author: you
-# Description: Turn user description into Suno-style prompt components:
-# styles, instruments, BPM, chord progressions, and reference tracks.
+# Description: Turn user description into Suno-style prompt components using ML
+# for better intent understanding and matching.
 
 from dataclasses import dataclass, field
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, Optional
 import random
 import textwrap
+import numpy as np
+
+# Optional ML imports - will use if available
+try:
+    from sentence_transformers import SentenceTransformer
+    ML_AVAILABLE = True
+except ImportError:
+    ML_AVAILABLE = False
+    print("Warning: sentence-transformers not installed. Using keyword matching only.")
 
 # -----------------------------
-# Data Definitions (can be moved to JSON/CSV later)
+# Load Data from External Files
 # -----------------------------
 
-EMOTION_KEYWORDS = {
-    "warm": ["warm", "cozy", "gentle", "soft", "tender", "温暖", "温柔"],
-    "chill": ["chill", "laid-back", "relaxed", "轻松", "慵懒", "lofi"],
-    "melancholic": ["melancholy", "melancholic", "sad", "blue", "emo", "忧郁", "伤感"],
-    "energetic": ["energetic", "upbeat", "driving", "punchy", "热血", "劲", "动感"],
-    "dreamy": ["dreamy", "hazy", "shimmer", "airy", "朦胧", "梦幻"],
-    "dark": ["dark", "moody", "noir", "阴郁", "冷峻"],
-    "romantic": ["romantic", "intimate", "甜", "浪漫"],
-    "nostalgic": ["nostalgic", "retro", "vintage", "怀旧", "复古"],
-    "urban": ["urban", "city", "neon", "霓虹", "夜色", "城市"],
-    "tropical": ["tropical", "island", "reggae", "阳光", "海风"]
-}
+# Import data from data_loader module
+try:
+    from data_loader import (
+        EMOTION_KEYWORDS,
+        STYLE_DB,
+        REFERENCE_DB,
+        EMOTION_TO_STYLES
+    )
+    DATA_FROM_FILES = True
+except ImportError:
+    # Fallback to hardcoded data
+    print("Warning: Could not load data_loader. Using hardcoded data.")
+    DATA_FROM_FILES = False
+    
+    EMOTION_KEYWORDS = {
+        "warm": ["warm", "cozy", "gentle", "soft", "tender", "温暖", "温柔"],
+        "chill": ["chill", "laid-back", "relaxed", "轻松", "慵懒", "lofi"],
+        "melancholic": ["melancholy", "melancholic", "sad", "blue", "emo", "忧郁", "伤感"],
+        "energetic": ["energetic", "upbeat", "driving", "punchy", "热血", "劲", "动感"],
+        "dreamy": ["dreamy", "hazy", "shimmer", "airy", "朦胧", "梦幻"],
+        "dark": ["dark", "moody", "noir", "阴郁", "冷峻"],
+        "romantic": ["romantic", "intimate", "甜", "浪漫"],
+        "nostalgic": ["nostalgic", "retro", "vintage", "怀旧", "复古"],
+        "urban": ["urban", "city", "neon", "霓虹", "夜色", "城市"],
+        "tropical": ["tropical", "island", "reggae", "阳光", "海风"]
+    }
 
-# Style dictionary: keywords, bpm range, instruments, chord templates
-STYLE_DB: Dict[str, Dict] = {
-    "R&B": {
-        "keywords": ["r&b", "soul", "neo-soul", "smooth", "silky", "urban", "late night", "柔滑"],
-        "bpm": (70, 95),
-        "instruments": ["Rhodes", "Electric piano", "Warm bass", "Soft kick & snare", "Silky synth pad", "Vocal layers"],
-        "chords": [
-            {"roman": "Imaj7 – vi7 – ii7 – V7", "C": "Cmaj7 – Am7 – Dm7 – G7"},
-            {"roman": "ivmaj7 – V7 – iii7 – vi7", "C": "Fmaj7 – G7 – Em7 – Am7"},
-            {"roman": "Imaj7 – iii7 – vi7 – ii7", "C": "Cmaj7 – Em7 – Am7 – Dm7"},
-        ],
-    },
-    "Reggae": {
-        "keywords": ["reggae", "dub", "tropical", "island", "sunny", "offbeat", "反拍", "牙买加"],
-        "bpm": (60, 76),
-        "instruments": ["Skank guitar (off-beat)", "Deep bass", "Dry drums", "Organ/Clav", "Spring reverb"],
-        "chords": [
-            {"roman": "I – V – vi – IV", "C": "C – G – Am – F"},
-            {"roman": "ii – V – I", "C": "Dm – G – C"},
-        ],
-    },
-    "Dream pop": {
-        "keywords": ["dream pop", "shoegaze", "dreamy", "reverb", "浮游", "air", "hazy", "朦胧"],
-        "bpm": (70, 95),
-        "instruments": ["Shimmer guitar (reverb/delay)", "Airy pad", "Soft drums", "Chorus vocals", "Subtle synth"],
-        "chords": [
-            {"roman": "I – IV – Vsus – V", "C": "C – F – Gsus – G"},
-            {"roman": "I – V – vi – IV", "C": "C – G – Am – F"},
-        ],
-    },
-    "City pop": {
-        "keywords": ["city pop", "retro", "80s", "japanese", "都会", "neon", "夜", "funky"],
-        "bpm": (95, 115),
-        "instruments": ["Electric guitar (clean)", "Slap/round bass", "Bright keys", "Disco hats", "Synth brass"],
-        "chords": [
-            {"roman": "Imaj7 – VI7 – ii7 – V7", "C": "Cmaj7 – A7 – Dm7 – G7"},
-            {"roman": "Imaj7 – V/vi – vi – ii7 – V7", "C": "Cmaj7 – E7 – Am – Dm7 – G7"},
-        ],
-    },
-    "Trip-hop": {
-        "keywords": ["trip-hop", "moody", "noir", "downtempo", "vinyl", "阴郁", "港口雨夜"],
-        "bpm": (70, 85),
-        "instruments": ["Dusty drums", "Sub-bass", "Tape saturation", "Lo-fi keys", "Sparse samples"],
-        "chords": [
-            {"roman": "i – VI – III – VII (aeolian)", "C": "Am – F – C – G"},
-            {"roman": "i – iv – v – i (minor)", "C": "Am – Dm – Em – Am"},
-        ],
-    },
-    "Lo-fi hiphop": {
-        "keywords": ["lofi", "study", "chill", "jazzy", "雨夜", "轻松"],
-        "bpm": (65, 85),
-        "instruments": ["Dusty drums", "Warm bass", "Rhodes", "Vinyl crackle", "Soft sax/keys"],
-        "chords": [
-            {"roman": "Imaj7 – vi7 – ii7 – V7", "C": "Cmaj7 – Am7 – Dm7 – G7"},
-            {"roman": "ii7 – V7 – Imaj7", "C": "Dm7 – G7 – Cmaj7"},
-        ],
-    },
-    "Synthwave": {
-        "keywords": ["synthwave", "80s", "retro", "analog", "neon", "夜跑"],
-        "bpm": (90, 110),
-        "instruments": ["Analog polysynth", "Arp synth", "Gated reverb drums", "Punchy bass", "Chorus guitar"],
-        "chords": [
-            {"roman": "i – VI – III – VII (aeolian)", "C": "Am – F – C – G"},
-            {"roman": "I – V – vi – IV", "C": "C – G – Am – F"},
-        ],
-    },
-    "Post-rock": {
-        "keywords": ["post-rock", "cinematic", "build-up", "延迟吉他", "层次", "情绪波峰"],
-        "bpm": (80, 120),
-        "instruments": ["Delay electric guitar", "Bass", "Drums (crescendo)", "Ambient pad", "Strings (optional)"],
-        "chords": [
-            {"roman": "I – IV – I – V (gradual build)", "C": "C – F – C – G"},
-            {"roman": "vi – IV – I – V", "C": "Am – F – C – G"},
-        ],
-    },
-    "Ambient": {
-        "keywords": ["ambient", "drone", "space", "slow", "冥想", "空灵"],
-        "bpm": (50, 80),
-        "instruments": ["Evolving pads", "Texture drones", "Piano sparsely", "Field recordings", "Granular beds"],
-        "chords": [
-            {"roman": "I – IV – I (sustain)", "C": "C – F – C"},
-            {"roman": "I – ii – I (modal)", "C": "C – Dm – C"},
-        ],
-    },
-}
+    STYLE_DB: Dict[str, Dict] = {
+        "R&B": {
+            "keywords": ["r&b", "soul", "neo-soul", "smooth", "silky", "urban", "late night", "柔滑"],
+            "bpm": (70, 95),
+            "instruments": ["Rhodes", "Electric piano", "Warm bass", "Soft kick & snare", "Silky synth pad", "Vocal layers"],
+            "chords": [
+                {"roman": "Imaj7 – vi7 – ii7 – V7", "C": "Cmaj7 – Am7 – Dm7 – G7"},
+                {"roman": "ivmaj7 – V7 – iii7 – vi7", "C": "Fmaj7 – G7 – Em7 – Am7"},
+                {"roman": "Imaj7 – iii7 – vi7 – ii7", "C": "Cmaj7 – Em7 – Am7 – Dm7"},
+            ],
+        },
+        "Reggae": {
+            "keywords": ["reggae", "dub", "tropical", "island", "sunny", "offbeat", "反拍", "牙买加"],
+            "bpm": (60, 76),
+            "instruments": ["Skank guitar (off-beat)", "Deep bass", "Dry drums", "Organ/Clav", "Spring reverb"],
+            "chords": [
+                {"roman": "I – V – vi – IV", "C": "C – G – Am – F"},
+                {"roman": "ii – V – I", "C": "Dm – G – C"},
+            ],
+        },
+        "Dream pop": {
+            "keywords": ["dream pop", "shoegaze", "dreamy", "reverb", "浮游", "air", "hazy", "朦胧"],
+            "bpm": (70, 95),
+            "instruments": ["Shimmer guitar (reverb/delay)", "Airy pad", "Soft drums", "Chorus vocals", "Subtle synth"],
+            "chords": [
+                {"roman": "I – IV – Vsus – V", "C": "C – F – Gsus – G"},
+                {"roman": "I – V – vi – IV", "C": "C – G – Am – F"},
+            ],
+        },
+        "City pop": {
+            "keywords": ["city pop", "retro", "80s", "japanese", "都会", "neon", "夜", "funky"],
+            "bpm": (95, 115),
+            "instruments": ["Electric guitar (clean)", "Slap/round bass", "Bright keys", "Disco hats", "Synth brass"],
+            "chords": [
+                {"roman": "Imaj7 – VI7 – ii7 – V7", "C": "Cmaj7 – A7 – Dm7 – G7"},
+                {"roman": "Imaj7 – V/vi – vi – ii7 – V7", "C": "Cmaj7 – E7 – Am – Dm7 – G7"},
+            ],
+        },
+        "Trip-hop": {
+            "keywords": ["trip-hop", "moody", "noir", "downtempo", "vinyl", "阴郁", "港口雨夜"],
+            "bpm": (70, 85),
+            "instruments": ["Dusty drums", "Sub-bass", "Tape saturation", "Lo-fi keys", "Sparse samples"],
+            "chords": [
+                {"roman": "i – VI – III – VII (aeolian)", "C": "Am – F – C – G"},
+                {"roman": "i – iv – v – i (minor)", "C": "Am – Dm – Em – Am"},
+            ],
+        },
+        "Lo-fi hiphop": {
+            "keywords": ["lofi", "study", "chill", "jazzy", "雨夜", "轻松"],
+            "bpm": (65, 85),
+            "instruments": ["Dusty drums", "Warm bass", "Rhodes", "Vinyl crackle", "Soft sax/keys"],
+            "chords": [
+                {"roman": "Imaj7 – vi7 – ii7 – V7", "C": "Cmaj7 – Am7 – Dm7 – G7"},
+                {"roman": "ii7 – V7 – Imaj7", "C": "Dm7 – G7 – Cmaj7"},
+            ],
+        },
+        "Synthwave": {
+            "keywords": ["synthwave", "80s", "retro", "analog", "neon", "夜跑"],
+            "bpm": (90, 110),
+            "instruments": ["Analog polysynth", "Arp synth", "Gated reverb drums", "Punchy bass", "Chorus guitar"],
+            "chords": [
+                {"roman": "i – VI – III – VII (aeolian)", "C": "Am – F – C – G"},
+                {"roman": "I – V – vi – IV", "C": "C – G – Am – F"},
+            ],
+        },
+        "Post-rock": {
+            "keywords": ["post-rock", "cinematic", "build-up", "延迟吉他", "层次", "情绪波峰"],
+            "bpm": (80, 120),
+            "instruments": ["Delay electric guitar", "Bass", "Drums (crescendo)", "Ambient pad", "Strings (optional)"],
+            "chords": [
+                {"roman": "I – IV – I – V (gradual build)", "C": "C – F – C – G"},
+                {"roman": "vi – IV – I – V", "C": "Am – F – C – G"},
+            ],
+        },
+        "Ambient": {
+            "keywords": ["ambient", "drone", "space", "slow", "冥想", "空灵"],
+            "bpm": (50, 80),
+            "instruments": ["Evolving pads", "Texture drones", "Piano sparsely", "Field recordings", "Granular beds"],
+            "chords": [
+                {"roman": "I – IV – I (sustain)", "C": "C – F – C"},
+                {"roman": "I – ii – I (modal)", "C": "C – Dm – C"},
+            ],
+        },
+    }
 
-# Reference track mini library (style -> list of tuples: (artist - title, note))
-REFERENCE_DB: Dict[str, List[Tuple[str, str]]] = {
-    "R&B": [
-        ("The Weeknd - Earned It", "silky, urban R&B ballad"),
-        ("FKJ - Tadow", "neo-soul, Rhodes & smooth bass"),
-        ("Daniel Caesar - Best Part", "intimate R&B duet"),
-    ],
-    "Reggae": [
-        ("Bob Marley - No Woman, No Cry", "classic roots reggae"),
-        ("Toots & The Maytals - 54-46", "ska/rocksteady edge"),
-        ("Rhye - Taste (reggae remix vibe)", "modern mellow twist"),
-    ],
-    "Dream pop": [
-        ("Beach House - Space Song", "iconic hazy dream pop"),
-        ("Alvvays - Dreams Tonite", "bright, nostalgic tint"),
-        ("M83 - Midnight City", "synth-lush dreaminess"),
-    ],
-    "City pop": [
-        ("Tatsuro Yamashita - Sparkle", "city pop gold"),
-        ("Miki Matsubara - Stay With Me", "classic vibe"),
-        ("落日飞车 Sunset Rollercoaster - My Jinji", "modern city-pop adjacent"),
-    ],
-    "Trip-hop": [
-        ("Massive Attack - Teardrop", "moody, iconic trip-hop"),
-        ("Portishead - Roads", "noir, cinematic"),
-        ("Tricky - Hell Is Round The Corner", "dark texture"),
-    ],
-    "Lo-fi hiphop": [
-        ("J Dilla - Donuts (various)", "lo-fi crate-digging vibe"),
-        ("Nujabes - Feather", "jazzy chill"),
-        ("Jinsang - affection", "classic lofi study"),
-    ],
-    "Synthwave": [
-        ("Kavinsky - Nightcall", "retro analog mood"),
-        ("Timecop1983 - On the Run", "romantic synthwave"),
-        ("The Midnight - Sunset", "modern synthwave"),
-    ],
-    "Post-rock": [
-        ("Explosions in the Sky - Your Hand in Mine", "build & catharsis"),
-        ("Mono - Ashes in the Snow", "cinematic swell"),
-        ("Wang Wen 惘闻 - Red Wall and Black Wall", "Chinese post-rock"),
-    ],
-    "Ambient": [
-        ("Brian Eno - An Ending (Ascent)", "pioneering ambient"),
-        ("Stars of the Lid - Requiem for Dying Mothers", "drone beauty"),
-        ("Hammock - Turn Away and Return", "lush ambient"),
-    ],
-    # Optional: specific Chinese indie reference you mentioned
-    "Indie refs": [
-        ("黑裙子 - lingling", "Chinese indie electronic/alt reference"),
+    REFERENCE_DB: Dict[str, List[Tuple[str, str]]] = {
+        "R&B": [
+            ("The Weeknd - Earned It", "silky, urban R&B ballad"),
+            ("FKJ - Tadow", "neo-soul, Rhodes & smooth bass"),
+            ("Daniel Caesar - Best Part", "intimate R&B duet"),
+        ],
+        "Reggae": [
+            ("Bob Marley - No Woman, No Cry", "classic roots reggae"),
+            ("Toots & The Maytals - 54-46", "ska/rocksteady edge"),
+            ("Rhye - Taste (reggae remix vibe)", "modern mellow twist"),
+        ],
+        "Dream pop": [
+            ("Beach House - Space Song", "iconic hazy dream pop"),
+            ("Alvvays - Dreams Tonite", "bright, nostalgic tint"),
+            ("M83 - Midnight City", "synth-lush dreaminess"),
+        ],
+        "City pop": [
+            ("Tatsuro Yamashita - Sparkle", "city pop gold"),
+            ("Miki Matsubara - Stay With Me", "classic vibe"),
+            ("落日飞车 Sunset Rollercoaster - My Jinji", "modern city-pop adjacent"),
+        ],
+        "Trip-hop": [
+            ("Massive Attack - Teardrop", "moody, iconic trip-hop"),
+            ("Portishead - Roads", "noir, cinematic"),
+            ("Tricky - Hell Is Round The Corner", "dark texture"),
+        ],
+        "Lo-fi hiphop": [
+            ("J Dilla - Donuts (various)", "lo-fi crate-digging vibe"),
+            ("Nujabes - Feather", "jazzy chill"),
+            ("Jinsang - affection", "classic lofi study"),
+        ],
+        "Synthwave": [
+            ("Kavinsky - Nightcall", "retro analog mood"),
+            ("Timecop1983 - On the Run", "romantic synthwave"),
+            ("The Midnight - Sunset", "modern synthwave"),
+        ],
+        "Post-rock": [
+            ("Explosions in the Sky - Your Hand in Mine", "build & catharsis"),
+            ("Mono - Ashes in the Snow", "cinematic swell"),
+            ("Wang Wen 惘闻 - Red Wall and Black Wall", "Chinese post-rock"),
+        ],
+        "Ambient": [
+            ("Brian Eno - An Ending (Ascent)", "pioneering ambient"),
+            ("Stars of the Lid - Requiem for Dying Mothers", "drone beauty"),
+            ("Hammock - Turn Away and Return", "lush ambient"),
+        ],
+        "Indie refs": [
+            ("黑裙子 - lingling", "Chinese indie electronic/alt reference"),
+        ]
+    }
+
+    EMOTION_TO_STYLES = {
+        "warm": {"R&B": 0.4, "Lo-fi hiphop": 0.3, "City pop": 0.2},
+        "chill": {"Lo-fi hiphop": 0.4, "Dream pop": 0.3, "Ambient": 0.2},
+        "melancholic": {"Trip-hop": 0.4, "Dream pop": 0.3, "Post-rock": 0.2},
+        "energetic": {"City pop": 0.3, "Synthwave": 0.3, "Post-rock": 0.2},
+        "dreamy": {"Dream pop": 0.5, "Ambient": 0.3, "Post-rock": 0.1},
+        "dark": {"Trip-hop": 0.5, "Synthwave": 0.2, "Ambient": 0.2},
+        "romantic": {"R&B": 0.4, "City pop": 0.3, "Dream pop": 0.2},
+        "nostalgic": {"City pop": 0.4, "Synthwave": 0.3, "Lo-fi hiphop": 0.2},
+        "urban": {"R&B": 0.4, "Trip-hop": 0.3, "Lo-fi hiphop": 0.2},
+        "tropical": {"Reggae": 0.6, "City pop": 0.2},
+    }
+else:
+    # Data loaded from JSON files (handled by data_loader module)
+    pass
+
+# -----------------------------
+# ML Module for Semantic Understanding
+# -----------------------------
+
+# Global model instance
+_ml_model = None
+
+def get_ml_model():
+    """Lazy load the ML model"""
+    global _ml_model
+    if _ml_model is None and ML_AVAILABLE:
+        _ml_model = SentenceTransformer('all-MiniLM-L6-v2')
+    return _ml_model
+
+def compute_semantic_scores(user_desc: str, candidate_texts: List[str]) -> np.ndarray:
+    """Use sentence embeddings to compute semantic similarity scores"""
+    model = get_ml_model()
+    if model is None:
+        return np.array([0.0] * len(candidate_texts))
+    
+    # Create embeddings
+    embeddings = model.encode([user_desc] + candidate_texts)
+    user_emb = embeddings[0]
+    candidate_embs = embeddings[1:]
+    
+    # Compute cosine similarity
+    scores = np.dot(candidate_embs, user_emb) / (
+        np.linalg.norm(user_emb) * np.linalg.norm(candidate_embs, axis=1)
+    )
+    return scores
+
+def ml_enhanced_emotion_detection(user_desc: str) -> List[str]:
+    """Use ML to detect emotions from description"""
+    # Create emotion descriptions
+    emotion_descriptions = {
+        emo: f"{emo} music: {', '.join(kws[:3])}" 
+        for emo, kws in EMOTION_KEYWORDS.items()
+    }
+    
+    # Compute semantic similarity
+    scores = compute_semantic_scores(user_desc, list(emotion_descriptions.values()))
+    
+    # Get top emotions
+    top_indices = scores.argsort()[-3:][::-1]
+    emotions = [list(EMOTION_KEYWORDS.keys())[i] for i in top_indices if scores[i] > 0.3]
+    
+    return emotions if emotions else ["chill"]
+
+def ml_enhanced_style_detection(user_desc: str) -> Dict[str, float]:
+    """Use ML + keywords for style detection"""
+    # Create style descriptions
+    style_descriptions = [
+        f"{style} music: {', '.join(meta['keywords'][:4])}" 
+        for style, meta in STYLE_DB.items()
     ]
-}
-
-# Cross-emotion to style nudges (adds small weights)
-EMOTION_TO_STYLES = {
-    "warm": {"R&B": 0.4, "Lo-fi hiphop": 0.3, "City pop": 0.2},
-    "chill": {"Lo-fi hiphop": 0.4, "Dream pop": 0.3, "Ambient": 0.2},
-    "melancholic": {"Trip-hop": 0.4, "Dream pop": 0.3, "Post-rock": 0.2},
-    "energetic": {"City pop": 0.3, "Synthwave": 0.3, "Post-rock": 0.2},
-    "dreamy": {"Dream pop": 0.5, "Ambient": 0.3, "Post-rock": 0.1},
-    "dark": {"Trip-hop": 0.5, "Synthwave": 0.2, "Ambient": 0.2},
-    "romantic": {"R&B": 0.4, "City pop": 0.3, "Dream pop": 0.2},
-    "nostalgic": {"City pop": 0.4, "Synthwave": 0.3, "Lo-fi hiphop": 0.2},
-    "urban": {"R&B": 0.4, "Trip-hop": 0.3, "Lo-fi hiphop": 0.2},
-    "tropical": {"Reggae": 0.6, "City pop": 0.2},
-}
+    
+    # Compute semantic similarity
+    scores = compute_semantic_scores(user_desc, style_descriptions)
+    
+    # Convert to dict
+    ml_scores = {style: float(score) for style, score in zip(STYLE_DB.keys(), scores)}
+    
+    # Also run keyword matching for hybrid approach
+    tokens = tokenize(user_desc)
+    keyword_scores = compute_style_scores(tokens, ml_enhanced_emotion_detection(user_desc))
+    
+    # Combine ML and keyword scores (70% ML, 30% keywords)
+    combined = {}
+    for style in STYLE_DB.keys():
+        combined[style] = 0.7 * ml_scores[style] + 0.3 * keyword_scores[style]
+    
+    return combined
 
 # -----------------------------
 # Core logic
@@ -307,7 +402,7 @@ def suggest_references(styles: List[str], emotions: List[str], n: int = 5) -> Li
 def word_count(s: str) -> int:
     return len(s.split())
 
-def build_prompt_sections(styles, emotions, bpm_range, instruments):
+def build_prompt_sections(styles, emotions, bpm_range, instruments, chords=None, references=None):
     style_str = " + ".join(styles)
     emo_words = ", ".join(emotions)
     bpm_str = f"{bpm_range[0]}–{bpm_range[1]} BPM"
@@ -338,10 +433,37 @@ def build_prompt_sections(styles, emotions, bpm_range, instruments):
     structure_long = "structure: intro – verse – chorus – verse – bridge – outro"
     structure_short = "structure: intro–verse–chorus–bridge–outro"
 
-    # chords：两种呈现方式（主prompt极简+详细移到末尾回显）
-    # 在主prompt内放“罗马数字极简句”，并在终端下方仍打印详细chords列表（你已有逻辑）
-    chords_inline = None  # 默认为不放在主句，如你想强制包含，可用短语版：
-    # chords_inline = "chords: diatonic pop/jazz cycles"
+    # chords：添加到主prompt
+    chords_inline = None
+    chords_inline_short = None
+    if chords:
+        # Example: "chords: I–vi–ii–V (Cmaj7–Am7–Dm7–G7)"
+        chord_strs = []
+        for ch in chords[:2]:  # Max 2 progressions
+            chord_strs.append(f"{ch['roman']} ({ch['C']})")
+        chords_inline = f"chords: {', '.join(chord_strs)}"
+        # Shorter version
+        if len(chords) > 0:
+            chords_inline_short = f"chords: {chords[0]['roman']} ({chords[0]['C']})"
+
+    # references：添加到主prompt
+    refs_inline = None
+    refs_inline_short = None
+    if references:
+        # Example: "references: Earned It, Space Song, Sparkle"
+        ref_titles = []
+        for ref in references[:3]:
+            # Extract song title from "Artist - Song Title" format
+            if ' - ' in ref[0]:
+                song_title = ref[0].split(' - ', 1)[1]  # Get everything after " - "
+            else:
+                # If no " - ", use the whole string (backward compatibility)
+                song_title = ref[0]
+            ref_titles.append(song_title)
+        
+        if ref_titles:
+            refs_inline = f"references: {', '.join(ref_titles)}"
+            refs_inline_short = f"refs: {', '.join(ref_titles[:2])}"
 
     sections = [
         {"name": "style",     "hard": f"{base_style}",          "soft": None,               "prio": 1},
@@ -350,11 +472,16 @@ def build_prompt_sections(styles, emotions, bpm_range, instruments):
         {"name": "groove",    "hard": groove_long,              "soft": groove_short,       "prio": 2},
         {"name": "mix",       "hard": mix_long,                 "soft": mix_short,          "prio": 2},
         {"name": "tempo",     "hard": tempo_line,               "soft": None,               "prio": 1},
-        {"name": "structure", "hard": structure_long,           "soft": structure_short,    "prio": 3},
     ]
-
+    
+    # Add chords and references with priority 2
     if chords_inline:
-        sections.append({"name": "chords", "hard": chords_inline, "soft": None, "prio": 2})
+        sections.append({"name": "chords", "hard": chords_inline, "soft": chords_inline_short, "prio": 2})
+    if refs_inline:
+        sections.append({"name": "references", "hard": refs_inline, "soft": refs_inline_short, "prio": 2})
+    
+    # Add structure with lowest priority (often removed)
+    sections.append({"name": "structure", "hard": structure_long, "soft": structure_short, "prio": 3})
 
     return sections
 
@@ -431,8 +558,8 @@ def compress_sections(sections, max_words=200, delimiter="; "):
         text = " ".join(" ".join(t) for t in tokens_by_part)
     return text
 
-def format_suno_prompt(styles, emotions, bpm_range, instruments) -> str:
-    sections = build_prompt_sections(styles, emotions, bpm_range, instruments)
+def format_suno_prompt(styles, emotions, bpm_range, instruments, chords=None, references=None) -> str:
+    sections = build_prompt_sections(styles, emotions, bpm_range, instruments, chords, references)
     prompt = compress_sections(sections, max_words=200)
     return prompt
 
@@ -487,16 +614,26 @@ def main():
 
     intent = UserIntent(description=desc, tempo_pref=tempo, texture_pref=texture, era_pref=era)
 
-    tokens = tokenize(intent.description)
-    emotions = match_emotions(tokens)
-    scores = compute_style_scores(tokens, emotions)
+    # Use ML-enhanced detection for better intent understanding
+    if ML_AVAILABLE:
+        # Use semantic similarity for better matching
+        emotions = ml_enhanced_emotion_detection(intent.description)
+        scores = ml_enhanced_style_detection(intent.description)
+    else:
+        # Fallback to keyword matching
+        tokens = tokenize(intent.description)
+        emotions = match_emotions(tokens)
+        scores = compute_style_scores(tokens, emotions)
+    
     top_styles = pick_top_styles(scores, k=2)
     bpm_range = blend_bpm(top_styles)
     instruments = collect_instruments(top_styles)
     chords = pick_chords(top_styles, n=2)
     bpm_range, instruments = apply_prefs(bpm_range, instruments, intent)
     refs = suggest_references(top_styles, emotions, n=5)
-    prompt = format_suno_prompt(top_styles, emotions, bpm_range, instruments)
+    
+    # Pass chords and references to include in prompt
+    prompt = format_suno_prompt(top_styles, emotions, bpm_range, instruments, chords, refs)
 
     print("\n--- RESULT ---")
     print(f"Styles: {', '.join(top_styles)}")

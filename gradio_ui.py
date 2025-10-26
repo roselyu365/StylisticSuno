@@ -8,19 +8,30 @@ from app import (
 print("Loaded UserIntent:", UserIntent, type(UserIntent), flush=True)
 
 def generate(desc, tempo_pref, texture_pref, era_pref):
+    from app import ml_enhanced_emotion_detection, ml_enhanced_style_detection, ML_AVAILABLE
+    
     intent = UserIntent(description=desc, tempo_pref=tempo_pref, texture_pref=texture_pref, era_pref=era_pref)
     if not desc or not desc.strip():
         return "Please enter a description.", "", "", "", ""
-    tokens = tokenize(desc)
-    emotions = match_emotions(tokens)
-    scores = compute_style_scores(tokens, emotions)
+    
+    # Use ML-enhanced detection
+    if ML_AVAILABLE:
+        emotions = ml_enhanced_emotion_detection(desc)
+        scores = ml_enhanced_style_detection(desc)
+    else:
+        tokens = tokenize(desc)
+        emotions = match_emotions(tokens)
+        scores = compute_style_scores(tokens, emotions)
+    
     top_styles = pick_top_styles(scores, 2)
     bpm_range = blend_bpm(top_styles)
     instruments = collect_instruments(top_styles)
     chord_list = pick_chords(top_styles, 2)
     bpm_range, instruments = apply_prefs(bpm_range, instruments, intent)
     refs = suggest_references(top_styles, emotions, 5)
-    prompt = format_suno_prompt(top_styles, emotions, bpm_range, instruments)
+    
+    # Pass chords and references for inclusion in main prompt
+    prompt = format_suno_prompt(top_styles, emotions, bpm_range, instruments, chord_list, refs)
 
     meta = f"Styles: {', '.join(top_styles)}\nEmotions: {', '.join(emotions)}\nBPM: {bpm_range[0]}–{bpm_range[1]}\nTempo: {tempo_pref}, Texture: {texture_pref}, Era: {era_pref}"
     chords_txt = "\n".join([f"- {c['roman']} | e.g., {c['C']}" for c in chord_list])
@@ -48,4 +59,6 @@ with gr.Blocks(theme=gr.themes.Soft(primary_hue="indigo", secondary_hue="blue"))
 
 if __name__ == "__main__":
     print("Launching Gradio...", flush=True)
+    print("Note: Share links expire in 72 hours. Local URL (127.0.0.1:7860) never expires.")
+    print("For permanent links, deploy to Hugging Face Spaces (free) or use Gradio paid plan.")
     demo.launch(share=True)

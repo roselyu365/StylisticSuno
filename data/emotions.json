@@ -1,0 +1,268 @@
+{
+    "warm": {
+        "keywords": [
+            "warm",
+            "cozy",
+            "gentle",
+            "soft",
+            "tender",
+            "温暖",
+            "温柔"
+        ],
+        "description": "warm and cozy feeling"
+    },
+    "chill": {
+        "keywords": [
+            "chill",
+            "laid-back",
+            "relaxed",
+            "轻松",
+            "慵懒",
+            "lofi"
+        ],
+        "description": "relaxed and laid-back atmosphere"
+    },
+    "melancholic": {
+        "keywords": [
+            "melancholy",
+            "melancholic",
+            "sad",
+            "blue",
+            "emo",
+            "heartbreak",
+            "heartbroken",
+            "disappointed",
+            "let down",
+            "unwilling",
+            "reluctant",
+            "regret",
+            "regretful",
+            "subtle heartbreak",
+            "fragile",
+            "weak",
+            "weakness",
+            "wistful",
+            "longing",
+            "hopeless",
+            "失望",
+            "心碎",
+            "遗憾",
+            "不情愿",
+            "忧郁",
+            "伤感"
+        ],
+        "description": "sad and melancholic mood with subtle heartbreak"
+    },
+    "energetic": {
+        "keywords": [
+            "energetic",
+            "upbeat",
+            "driving",
+            "punchy",
+            "热血",
+            "劲",
+            "动感"
+        ],
+        "description": "energetic and upbeat vibe"
+    },
+    "dreamy": {
+        "keywords": [
+            "dreamy",
+            "hazy",
+            "shimmer",
+            "airy",
+            "朦胧",
+            "梦幻"
+        ],
+        "description": "dreamy and hazy feeling"
+    },
+    "dark": {
+        "keywords": [
+            "dark",
+            "moody",
+            "noir",
+            "阴郁",
+            "冷峻"
+        ],
+        "description": "dark and moody atmosphere"
+    },
+    "romantic": {
+        "keywords": [
+            "romantic",
+            "intimate",
+            "attracted",
+            "attraction",
+            "crush",
+            "love",
+            "loving",
+            "sweet",
+            "甜",
+            "浪漫",
+            "心动"
+        ],
+        "description": "romantic and intimate mood"
+    },
+    "nostalgic": {
+        "keywords": [
+            "nostalgic",
+            "retro",
+            "vintage",
+            "怀旧",
+            "复古"
+        ],
+        "description": "nostalgic and retro feeling"
+    },
+    "urban": {
+        "keywords": [
+            "urban",
+            "city",
+            "neon",
+            "霓虹",
+            "夜色",
+            "城市"
+        ],
+        "description": "urban and city vibe"
+    },
+    "tropical": {
+        "keywords": [
+            "tropical",
+            "island",
+            "reggae",
+            "阳光",
+            "海风"
+        ],
+        "description": "tropical and island feeling"
+    },
+    "playful": {
+        "keywords": [
+            "playful",
+            "fun",
+            "bouncy",
+            "whimsical",
+            "有趣",
+            "跳跃"
+        ],
+        "description": "playful and fun mood"
+    },
+    "dramatic": {
+        "keywords": [
+            "dramatic",
+            "intense",
+            "epic",
+            "cinematic",
+            "戏剧",
+            "史诗"
+        ],
+        "description": "dramatic and intense atmosphere"
+    },
+    "serene": {
+        "keywords": [
+            "serene",
+            "peaceful",
+            "calm",
+            "tranquil",
+            "宁静",
+            "平和"
+        ],
+        "description": "serene and peaceful feeling"
+    },
+    "euphoric": {
+        "keywords": [
+            "euphoric",
+            "ecstatic",
+            "blissful",
+            "elated",
+            "狂喜",
+            "极乐"
+        ],
+        "description": "euphoric and ecstatic feeling"
+    },
+    "anxious": {
+        "keywords": [
+            "anxious",
+            "tense",
+            "nervous",
+            "worried",
+            "焦虑",
+            "紧张"
+        ],
+        "description": "anxious and tense atmosphere"
+    },
+    "confident": {
+        "keywords": [
+            "confident",
+            "bold",
+            "assertive",
+            "powerful",
+            "自信",
+            "坚定"
+        ],
+        "description": "confident and bold energy"
+    },
+    "lonely": {
+        "keywords": [
+            "lonely",
+            "isolated",
+            "solitary",
+            "alone",
+            "孤独",
+            "寂寞"
+        ],
+        "description": "lonely and isolated feeling"
+    },
+    "triumphant": {
+        "keywords": [
+            "triumphant",
+            "victorious",
+            "celebratory",
+            "successful",
+            "胜利",
+            "凯旋"
+        ],
+        "description": "triumphant and victorious atmosphere"
+    },
+    "mysterious": {
+        "keywords": [
+            "mysterious",
+            "enigmatic",
+            "cryptic",
+            "obscure",
+            "神秘",
+            "谜"
+        ],
+        "description": "mysterious and enigmatic atmosphere"
+    },
+    "contemplative": {
+        "keywords": [
+            "contemplative",
+            "reflective",
+            "meditative",
+            "thoughtful",
+            "沉思",
+            "冥想"
+        ],
+        "description": "contemplative and reflective mood"
+    },
+    "festive": {
+        "keywords": [
+            "festive",
+            "celebratory",
+            "party",
+            "joyous",
+            "节日",
+            "庆祝"
+        ],
+        "description": "festive and celebratory atmosphere"
+    },
+    "haunting": {
+        "keywords": [
+            "haunting",
+            "eerie",
+            "ethereal",
+            "ghostly",
+            "阴森",
+            "诡异"
+        ],
+        "description": "haunting and eerie feeling"
+    }
+}

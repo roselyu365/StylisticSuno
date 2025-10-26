@@ -1,0 +1,727 @@
+{
+    "R&B": {
+        "keywords": [
+            "r&b",
+            "soul",
+            "neo-soul",
+            "smooth",
+            "silky",
+            "urban",
+            "late night",
+            "柔滑"
+        ],
+        "bpm_min": 70,
+        "bpm_max": 95,
+        "instruments": [
+            "Rhodes",
+            "Electric piano",
+            "Warm bass",
+            "Soft kick & snare",
+            "Silky synth pad",
+            "Vocal layers"
+        ],
+        "chords": [
+            {
+                "roman": "Imaj7 – vi7 – ii7 – V7",
+                "C": "Cmaj7 – Am7 – Dm7 – G7"
+            },
+            {
+                "roman": "ivmaj7 – V7 – iii7 – vi7",
+                "C": "Fmaj7 – G7 – Em7 – Am7"
+            },
+            {
+                "roman": "Imaj7 – iii7 – vi7 – ii7",
+                "C": "Cmaj7 – Em7 – Am7 – Dm7"
+            }
+        ],
+        "description": "Smooth and silky R&B with soulful vocals"
+    },
+    "Reggae": {
+        "keywords": [
+            "reggae",
+            "dub",
+            "tropical",
+            "island",
+            "sunny",
+            "offbeat",
+            "反拍",
+            "牙买加"
+        ],
+        "bpm_min": 60,
+        "bpm_max": 76,
+        "instruments": [
+            "Skank guitar (off-beat)",
+            "Deep bass",
+            "Dry drums",
+            "Organ/Clav",
+            "Spring reverb"
+        ],
+        "chords": [
+            {
+                "roman": "I – V – vi – IV",
+                "C": "C – G – Am – F"
+            },
+            {
+                "roman": "ii – V – I",
+                "C": "Dm – G – C"
+            }
+        ],
+        "description": "Classic reggae with island vibes"
+    },
+    "Dream pop": {
+        "keywords": [
+            "dream pop",
+            "shoegaze",
+            "dreamy",
+            "reverb",
+            "浮游",
+            "air",
+            "hazy",
+            "朦胧"
+        ],
+        "bpm_min": 70,
+        "bpm_max": 95,
+        "instruments": [
+            "Shimmer guitar (reverb/delay)",
+            "Airy pad",
+            "Soft drums",
+            "Chorus vocals",
+            "Subtle synth"
+        ],
+        "chords": [
+            {
+                "roman": "I – IV – Vsus – V",
+                "C": "C – F – Gsus – G"
+            },
+            {
+                "roman": "I – V – vi – IV",
+                "C": "C – G – Am – F"
+            }
+        ],
+        "description": "Hazy and dreamy pop with lush reverb"
+    },
+    "City pop": {
+        "keywords": [
+            "city pop",
+            "retro",
+            "80s",
+            "japanese",
+            "都会",
+            "neon",
+            "夜",
+            "funky"
+        ],
+        "bpm_min": 95,
+        "bpm_max": 115,
+        "instruments": [
+            "Electric guitar (clean)",
+            "Slap/round bass",
+            "Bright keys",
+            "Disco hats",
+            "Synth brass"
+        ],
+        "chords": [
+            {
+                "roman": "Imaj7 – VI7 – ii7 – V7",
+                "C": "Cmaj7 – A7 – Dm7 – G7"
+            },
+            {
+                "roman": "Imaj7 – V/vi – vi – ii7 – V7",
+                "C": "Cmaj7 – E7 – Am – Dm7 – G7"
+            }
+        ],
+        "description": "Retro 80s Japanese city pop"
+    },
+    "Trip-hop": {
+        "keywords": [
+            "trip-hop",
+            "moody",
+            "noir",
+            "downtempo",
+            "vinyl",
+            "阴郁",
+            "港口雨夜"
+        ],
+        "bpm_min": 70,
+        "bpm_max": 85,
+        "instruments": [
+            "Dusty drums",
+            "Sub-bass",
+            "Tape saturation",
+            "Lo-fi keys",
+            "Sparse samples"
+        ],
+        "chords": [
+            {
+                "roman": "i – VI – III – VII (aeolian)",
+                "C": "Am – F – C – G"
+            },
+            {
+                "roman": "i – iv – v – i (minor)",
+                "C": "Am – Dm – Em – Am"
+            }
+        ],
+        "description": "Moody trip-hop with noir atmosphere"
+    },
+    "Lo-fi hiphop": {
+        "keywords": [
+            "lofi",
+            "study",
+            "chill",
+            "jazzy",
+            "雨夜",
+            "轻松"
+        ],
+        "bpm_min": 65,
+        "bpm_max": 85,
+        "instruments": [
+            "Dusty drums",
+            "Warm bass",
+            "Rhodes",
+            "Vinyl crackle",
+            "Soft sax/keys"
+        ],
+        "chords": [
+            {
+                "roman": "Imaj7 – vi7 – ii7 – V7",
+                "C": "Cmaj7 – Am7 – Dm7 – G7"
+            },
+            {
+                "roman": "ii7 – V7 – Imaj7",
+                "C": "Dm7 – G7 – Cmaj7"
+            }
+        ],
+        "description": "Chill lo-fi hip hop beats"
+    },
+    "Synthwave": {
+        "keywords": [
+            "synthwave",
+            "80s",
+            "retro",
+            "analog",
+            "neon",
+            "夜跑"
+        ],
+        "bpm_min": 90,
+        "bpm_max": 110,
+        "instruments": [
+            "Analog polysynth",
+            "Arp synth",
+            "Gated reverb drums",
+            "Punchy bass",
+            "Chorus guitar"
+        ],
+        "chords": [
+            {
+                "roman": "i – VI – III – VII (aeolian)",
+                "C": "Am – F – C – G"
+            },
+            {
+                "roman": "I – V – vi – IV",
+                "C": "C – G – Am – F"
+            }
+        ],
+        "description": "Retro 80s synthwave with neon vibes"
+    },
+    "Post-rock": {
+        "keywords": [
+            "post-rock",
+            "cinematic",
+            "build-up",
+            "延迟吉他",
+            "层次",
+            "情绪波峰"
+        ],
+        "bpm_min": 80,
+        "bpm_max": 120,
+        "instruments": [
+            "Delay electric guitar",
+            "Bass",
+            "Drums (crescendo)",
+            "Ambient pad",
+            "Strings (optional)"
+        ],
+        "chords": [
+            {
+                "roman": "I – IV – I – V (gradual build)",
+                "C": "C – F – C – G"
+            },
+            {
+                "roman": "vi – IV – I – V",
+                "C": "Am – F – C – G"
+            }
+        ],
+        "description": "Cinematic post-rock with epic build-ups"
+    },
+    "Ambient": {
+        "keywords": [
+            "ambient",
+            "drone",
+            "space",
+            "slow",
+            "冥想",
+            "空灵"
+        ],
+        "bpm_min": 50,
+        "bpm_max": 80,
+        "instruments": [
+            "Evolving pads",
+            "Texture drones",
+            "Piano sparsely",
+            "Field recordings",
+            "Granular beds"
+        ],
+        "chords": [
+            {
+                "roman": "I – IV – I (sustain)",
+                "C": "C – F – C"
+            },
+            {
+                "roman": "I – ii – I (modal)",
+                "C": "C – Dm – C"
+            }
+        ],
+        "description": "Atmospheric ambient textures"
+    },
+    "Jazz": {
+        "keywords": [
+            "jazz",
+            "swing",
+            "brass",
+            "saxophone",
+            "爵士",
+            "摇摆"
+        ],
+        "bpm_min": 100,
+        "bpm_max": 140,
+        "instruments": [
+            "Piano",
+            "Double bass",
+            "Saxophone",
+            "Trumpet",
+            "Brush drums",
+            "Vibraphone"
+        ],
+        "chords": [
+            {
+                "roman": "ii7 – V7 – Imaj7",
+                "C": "Dm7 – G7 – Cmaj7"
+            },
+            {
+                "roman": "iii7 – vi7 – ii7 – V7",
+                "C": "Em7 – Am7 – Dm7 – G7"
+            }
+        ],
+        "description": "Classic jazz with swing feel"
+    },
+    "Folk": {
+        "keywords": [
+            "folk",
+            "acoustic",
+            "singer-songwriter",
+            "fingerpicking",
+            "民谣",
+            "原声"
+        ],
+        "bpm_min": 60,
+        "bpm_max": 100,
+        "instruments": [
+            "Acoustic guitar",
+            "Fingerpicking",
+            "Soft vocals",
+            "Cello",
+            "Subtle percussion"
+        ],
+        "chords": [
+            {
+                "roman": "I – vi – IV – V",
+                "C": "C – Am – F – G"
+            },
+            {
+                "roman": "vi – IV – I – V",
+                "C": "Am – F – C – G"
+            }
+        ],
+        "description": "Intimate folk with acoustic instruments"
+    },
+    "Metal": {
+        "keywords": [
+            "metal",
+            "heavy",
+            "distortion",
+            "thrash",
+            "金属",
+            "重"
+        ],
+        "bpm_min": 120,
+        "bpm_max": 200,
+        "instruments": [
+            "Distorted guitar",
+            "Heavy bass",
+            "Double-kick drums",
+            "Power chords",
+            "Growl vocals"
+        ],
+        "chords": [
+            {
+                "roman": "i – VI – VII – i (minor)",
+                "C": "Am – F – G – Am"
+            },
+            {
+                "roman": "i – iv – i (chugging)",
+                "C": "Am – Dm – Am"
+            }
+        ],
+        "description": "Heavy metal with aggressive riff"
+    },
+    "House": {
+        "keywords": [
+            "house",
+            "4/4",
+            "piano",
+            "disco",
+            "深house"
+        ],
+        "bpm_min": 120,
+        "bpm_max": 130,
+        "instruments": [
+            "Four-on-floor kick",
+            "Bass",
+            "Piano chords",
+            "Strings",
+            "Vocal chops"
+        ],
+        "chords": [
+            {
+                "roman": "I – V – vi – IV",
+                "C": "C – G – Am – F"
+            }
+        ],
+        "description": "Classic house music with disco roots"
+    },
+    "EDM": {
+        "keywords": [
+            "edm",
+            "dance",
+            "festival",
+            "drop",
+            "build",
+            "电子舞曲"
+        ],
+        "bpm_min": 128,
+        "bpm_max": 140,
+        "instruments": [
+            "Synthetic bass",
+            "Lead synth",
+            "Kick",
+            "Hi-hats",
+            "Plucks"
+        ],
+        "chords": [
+            {
+                "roman": "I – vi – iii – V",
+                "C": "C – Am – Em – G"
+            }
+        ],
+        "description": "Commercial EDM with big drops"
+    },
+    "Indie Pop": {
+        "keywords": [
+            "indie",
+            "indie pop",
+            "quirky",
+            "cute",
+            "fun",
+            "独立流行"
+        ],
+        "bpm_min": 100,
+        "bpm_max": 130,
+        "instruments": [
+            "Clean guitar",
+            "Bright synth",
+            "Tambourine",
+            "Bass",
+            "Vocal harmonies"
+        ],
+        "chords": [
+            {
+                "roman": "I – V – vi – IV",
+                "C": "C – G – Am – F"
+            }
+        ],
+        "description": "Quirky and fun indie pop"
+    },
+    "Ska": {
+        "keywords": [
+            "ska",
+            "offbeat",
+            "brass",
+            "jamaica",
+            "雷鬼"
+        ],
+        "bpm_min": 130,
+        "bpm_max": 160,
+        "instruments": [
+            "Off-beat guitar",
+            "Brass section",
+            "Walking bass",
+            "Drums",
+            "Organ"
+        ],
+        "chords": [
+            {
+                "roman": "I – iv – V",
+                "C": "C – F – G"
+            }
+        ],
+        "description": "Upbeat ska with brass section"
+    },
+    "Punk Rock": {
+        "keywords": [
+            "punk",
+            "aggressive",
+            "fast",
+            "distortion",
+            "朋克"
+        ],
+        "bpm_min": 150,
+        "bpm_max": 200,
+        "instruments": [
+            "Distorted guitar",
+            "Bass",
+            "Drums",
+            "Raw vocals",
+            "Power chords"
+        ],
+        "chords": [
+            {
+                "roman": "I – V",
+                "C": "C – G"
+            }
+        ],
+        "description": "Fast and aggressive punk rock"
+    },
+    "Country": {
+        "keywords": [
+            "country",
+            "western",
+            "twang",
+            "guitar",
+            "countryside",
+            "乡村"
+        ],
+        "bpm_min": 70,
+        "bpm_max": 120,
+        "instruments": [
+            "Acoustic guitar",
+            "Steel guitar",
+            "Fiddle",
+            "Banjo",
+            "Harmonica"
+        ],
+        "chords": [
+            {
+                "roman": "I – V – I",
+                "C": "C – G – C"
+            },
+            {
+                "roman": "I – IV – V – I",
+                "C": "C – F – G – C"
+            }
+        ],
+        "description": "Classic country music with twangy guitar"
+    },
+    "Funk": {
+        "keywords": [
+            "funk",
+            "groove",
+            "slap bass",
+            "syncopated",
+            "funky",
+            "放克"
+        ],
+        "bpm_min": 100,
+        "bpm_max": 130,
+        "instruments": [
+            "Slap bass",
+            "Wah guitar",
+            "Horn section",
+            "Organ",
+            "Drum kit"
+        ],
+        "chords": [
+            {
+                "roman": "i7 – v7",
+                "C": "C7 – G7"
+            },
+            {
+                "roman": "ii7 – V7 – I7",
+                "C": "Dm7 – G7 – C7"
+            }
+        ],
+        "description": "Groovy funk with syncopated rhythm"
+    },
+    "Blues": {
+        "keywords": [
+            "blues",
+            "12-bar",
+            "soulful",
+            "bend",
+            "布鲁斯"
+        ],
+        "bpm_min": 60,
+        "bpm_max": 110,
+        "instruments": [
+            "Electric guitar",
+            "Harp",
+            "Slide guitar",
+            "Drums",
+            "Bass"
+        ],
+        "chords": [
+            {
+                "roman": "I – I – I – I – IV – IV – I – I – V – IV – I – I",
+                "C": "C – C – C – C – F – F – C – C – G – F – C – C"
+            }
+        ],
+        "description": "Classic blues with soulful guitar bends"
+    },
+    "Classical": {
+        "keywords": [
+            "classical",
+            "orchestral",
+            "symphony",
+            "piano",
+            "strings",
+            "古典"
+        ],
+        "bpm_min": 40,
+        "bpm_max": 140,
+        "instruments": [
+            "Piano",
+            "Strings section",
+            "Woodwinds",
+            "Brass",
+            "Timpani"
+        ],
+        "chords": [
+            {
+                "roman": "I – vi – IV – V",
+                "C": "C – Am – F – G"
+            },
+            {
+                "roman": "I – V – vi – IV",
+                "C": "C – G – Am – F"
+            }
+        ],
+        "description": "Orchestral classical music"
+    },
+    "Hip-Hop": {
+        "keywords": [
+            "hip-hop",
+            "rap",
+            "808",
+            "turntable",
+            "sayings",
+            "说唱"
+        ],
+        "bpm_min": 70,
+        "bpm_max": 100,
+        "instruments": [
+            "808 kick",
+            "Snare",
+            "Hi-hats",
+            "Sub-bass",
+            "Samples"
+        ],
+        "chords": [
+            {
+                "roman": "i – i – i – i",
+                "C": "Am – Am – Am – Am"
+            },
+            {
+                "roman": "i – VI – v – VI",
+                "C": "Am – F – Em – F"
+            }
+        ],
+        "description": "Classic hip-hop with 808 drums"
+    },
+    "Techno": {
+        "keywords": [
+            "techno",
+            "4/4",
+            "industrial",
+            "minimal",
+            "machine",
+            "科技"
+        ],
+        "bpm_min": 120,
+        "bpm_max": 150,
+        "instruments": [
+            "Kick drum",
+            "Bass synth",
+            "Hi-hats",
+            "Stabs",
+            "Atmospheric pads"
+        ],
+        "chords": [
+            {
+                "roman": "i – i – i – i",
+                "C": "Am – Am – Am – Am"
+            }
+        ],
+        "description": "Driving techno with industrial edge"
+    },
+    "Gospel": {
+        "keywords": [
+            "gospel",
+            "choir",
+            "spiritual",
+            "uplifting",
+            "faith",
+            "福音"
+        ],
+        "bpm_min": 80,
+        "bpm_max": 120,
+        "instruments": [
+            "Choir",
+            "Organ",
+            "Piano",
+            "Horns",
+            "Tambourine"
+        ],
+        "chords": [
+            {
+                "roman": "I – IV – V",
+                "C": "C – F – G"
+            }
+        ],
+        "description": "Uplifting gospel with choir"
+    },
+    "Soul": {
+        "keywords": [
+            "soul",
+            "motown",
+            "smooth",
+            "groove",
+            "horn",
+            "灵魂"
+        ],
+        "bpm_min": 80,
+        "bpm_max": 120,
+        "instruments": [
+            "Soul vocals",
+            "Horns section",
+            "Electric organ",
+            "Bass",
+            "Drums"
+        ],
+        "chords": [
+            {
+                "roman": "I – vi – IV – V",
+                "C": "C – Am – F – G"
+            }
+        ],
+        "description": "Classic soul with horn section"
+    }
+}
