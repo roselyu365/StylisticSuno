@@ -4,6 +4,8 @@
 
 SonicPalette is an intelligent prompt generator that transforms natural language descriptions into comprehensive, music-theory-informed prompts for Suno AI music generation. Simply describe the vibe you want, and get a complete composition blueprint with style, instruments, tempo, mood, chord progressions, and reference tracks.
 
+view the songs I made with SonicPalette: https://suno.com/@roselyu9  ---super satisfied with the "Porcelain Heart"
+
 ## ✨ Features
 
 ### 🎯 Target Users
